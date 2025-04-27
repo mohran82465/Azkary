@@ -1,0 +1,37 @@
+<div class="text-center">
+  <h2
+    class="text-3xl sm:text-5xl font-extrabold bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 text-transparent bg-clip-text"
+  >
+    <span [innerHTML]="day() || '' | translate"> </span>
+    <br />
+    <span>
+      {{ hijriDate() }}
+    </span>
+  </h2>
+  <p
+    class=" pt-11 bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 text-transparent bg-clip-text"
+  >
+    <span class="font-extrabold pr-4">
+      {{ country() }}
+    </span>
+    <span class="font-bold">
+      {{ city() }}
+    </span>
+  </p>
+</div>
+
+<div class="grid grid-cols-1 gap-7 p-8">
+  <app-countdown-timer [pray]="nextPrayName" [targetTime]="nextprayNameTime" />
+</div>
+
+<div class="grid sm:grid-cols-12 gap-7 sm:gap-5 p-8">
+  @for (destination of prayerTime; track $index) { @if($index === 3 ) {
+  <div class="sm:col-span-2 sm:block hidden"></div>
+  }
+  <app-prayer-card
+    class="sm:col-span-4"
+    [destination]="destination"
+  ></app-prayer-card>
+
+  }
+</div>

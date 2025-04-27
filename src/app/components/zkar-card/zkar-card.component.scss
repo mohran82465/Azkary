@@ -1,0 +1,58 @@
+// Custom styles to combine with DaisyUI
+.azkar-counter {
+    @apply glass bg-opacity-10 rounded-2xl p-8 cursor-pointer;
+    @apply transition-all duration-300 hover:bg-opacity-20;
+    @apply relative overflow-hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(40px);
+    
+    // DaisyUI countdown customization
+    .countdown {
+      @apply text-center mb-4;
+      
+      &-number::before {
+        @apply text-white font-bold;
+        content: counter(count);
+      }
+    }
+  
+    .counter-label {
+      @apply text-center text-sm opacity-80 transition-opacity;
+      
+      span {
+        @apply block mb-1;
+      }
+      
+      .checkmark {
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+        @apply text-6xl opacity-0 transition-all;
+        filter: drop-shadow(0 0 8px rgba(76,175,80,0.5));
+      }
+    }
+  
+    // Completed state
+    &.completed {
+      @apply bg-success bg-opacity-10;
+      
+      .countdown-number::before {
+        @apply opacity-20;
+      }
+      
+      .counter-label {
+        @apply opacity-100;
+        
+        .checkmark {
+          @apply opacity-100;
+        }
+      }
+    }
+  
+    // Animation for number change
+    counter-set: count var(--value);
+    transition: --value 0.3s ease;
+  }
+  
+  // DaisyUI countdown override
+  .countdown-number::before {
+    counter-reset: count var(--value);
+  }

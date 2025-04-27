@@ -1,0 +1,15 @@
+<!-- In your component template -->
+<div class="azkar-counter" 
+     (click)="decrementCounter()" 
+     [class.completed]="currentCount === 0"
+     [style.--value]="currentCount"
+     role="button"
+     tabindex="0">
+  <div class="countdown font-mono text-5xl">
+    <span class="countdown-number"> {{currentCount}}</span>
+  </div>
+  <div class="counter-label">
+    <span>{{ currentCount === 0 ? 'Completed' : 'Remaining' }}</span>
+    <div class="checkmark">✓</div>
+  </div>
+</div>
