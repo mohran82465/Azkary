@@ -34,27 +34,26 @@
           >
         </span> -->
       </p>
-     <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
-  <div class="flex flex-col">
-    <span class="countdown font-mono text-5xl">
-      <span [style.--value]="hours()">{{ hours() }}</span>
-    </span>
-    {{ "hours" | translate }}
-  </div>
-  <div class="flex flex-col">
-    <span class="countdown font-mono text-5xl">
-      <span [style.--value]="minutes()">{{ minutes() }}</span>
-    </span>
-    {{ "min" | translate }}
-  </div>
-  <div class="flex flex-col">
-    <span class="countdown font-mono text-5xl">
-      <span [style.--value]="seconds()">{{ seconds() }}</span>
-    </span>
-    {{ "sec" | translate }}
-  </div>
-</div>
-
+      <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
+        <div class="flex flex-col">
+          <span class="countdown font-mono text-5xl">
+            <span [style.--value]="hours()">{{ hours() }}</span>
+          </span>
+          {{ "hours" | translate }}
+        </div>
+        <div class="flex flex-col">
+          <span class="countdown font-mono text-5xl">
+            <span [style.--value]="minutes()">{{ minutes() }}</span>
+          </span>
+          {{ "min" | translate }}
+        </div>
+        <div class="flex flex-col">
+          <span class="countdown font-mono text-5xl">
+            <span [style.--value]="seconds()">{{ seconds() }}</span>
+          </span>
+          {{ "sec" | translate }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

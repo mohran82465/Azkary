@@ -47,18 +47,17 @@ export class PrayerTimeComponent {
       this.selectedCountry = detectedCountry;
 
       this.loadPrayerTimes(detectedCity, detectedCountry);
-      this.nextPrayTime(detectedLat, detectedLong);
+      this.nextPrayTime(detectedLat, detectedLong,this.isha());
     });
   }
 
-  nextPrayTime(lat: number, long: number) {
-    this.paryerTimeService.getNextPrayerTime(lat, long).subscribe(
+  nextPrayTime(lat: number, long: number , isha:string) {
+    this.paryerTimeService.getNextPrayerTime(lat, long , isha).subscribe(
       {
         next: (res) => {
           console.log(res);
-          const pray = res.data.timings
-          this.nextPrayName = Object.keys(pray)[0];
-          this.nextprayNameTime = pray[this.nextPrayName];
+          this.nextPrayName =res.name;
+          this.nextprayNameTime = res.time;
 
         },
         error: (err) => console.error('API Error:', err)

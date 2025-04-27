@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, input, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, signal, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-countdown-timer',
-  imports: [CommonModule,TranslateModule],
+  standalone: true,
+  imports: [CommonModule, TranslateModule],
   templateUrl: './countdown-timer.component.html',
   styleUrl: './countdown-timer.component.scss'
 })
 export class CountdownTimerComponent implements OnInit, OnDestroy {
   private _targetTime = signal<string | null>(null);
-  pray = input<string> (); 
-  
+  pray = input<string>();
+
   @Input()
   set targetTime(value: string | null) {
     this._targetTime.set(value);
@@ -45,23 +46,28 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
     if (!this.targetTime) return;
 
     const now = new Date();
-    const [h, m] = this.targetTime.split(':').map(Number);
+    const [targetHour, targetMinute] = this.targetTime.split(':').map(Number);
 
     const target = new Date();
-    target.setHours(h, m, 0, 0);
+    target.setHours(targetHour, targetMinute, 0, 0);
 
-    let diff = target.getTime() - now.getTime();
+    let diffMs = target.getTime() - now.getTime();
 
-    if (diff <= 0) {
-      this.hours.set(0);
-      this.minutes.set(0);
-      this.seconds.set(0);
-      clearInterval(this.intervalId);
-      return;
+    // If target time already passed today, assume it's for tomorrow
+    if (diffMs < 0) {
+      target.setDate(target.getDate() + 1);
+      diffMs = target.getTime() - now.getTime();
     }
 
-    this.seconds.set(Math.floor(diff / 1000) % 60);
-    this.minutes.set(Math.floor(diff / 1000 / 60) % 60);
-    this.hours.set(Math.floor(diff / 1000 / 60 / 60));
+    const totalSeconds = Math.floor(diffMs / 1000);
+
+    // Using modulo to get clean hours, minutes, seconds
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60) % 60;
+    const hours = Math.floor(totalSeconds / 3600) % 24;
+
+    this.hours.set(hours);
+    this.minutes.set(minutes);
+    this.seconds.set(seconds);
   }
 }
